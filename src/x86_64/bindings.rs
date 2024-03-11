@@ -3458,6 +3458,50 @@ fn bindgen_test_layout_kvm_reinject_control() {
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 #[cfg_attr(feature = "with-serde", derive(Deserialize, Serialize))]
+pub struct kvm_vcpu_events_old {
+    pub exception: kvm_vcpu_events__bindgen_ty_1,
+    pub interrupt: kvm_vcpu_events__bindgen_ty_2,
+    pub nmi: kvm_vcpu_events__bindgen_ty_3,
+    pub sipi_vector: __u32,
+    pub flags: __u32,
+    pub smi: kvm_vcpu_events__bindgen_ty_4,
+    pub reserved: [__u8; 27usize],
+    pub exception_has_payload: __u8,
+    pub exception_payload: __u64,
+}
+impl From<kvm_vcpu_events_old> for kvm_vcpu_events {
+    fn from(s: kvm_vcpu_events_old) -> Self {
+        Self {
+            exception: s.exception,
+            interrupt: s.interrupt,
+            nmi: s.nmi,
+            sipi_vector: s.sipi_vector,
+            flags: s.flags,
+            smi: s.smi,
+            exception_has_payload: s.exception_has_payload,
+            exception_payload: s.exception_payload,
+            ..Default::default()
+        }
+    }
+}
+impl From<kvm_vcpu_events> for kvm_vcpu_events_old {
+    fn from(s: kvm_vcpu_events) -> Self {
+        Self {
+            exception: s.exception,
+            interrupt: s.interrupt,
+            nmi: s.nmi,
+            sipi_vector: s.sipi_vector,
+            flags: s.flags,
+            smi: s.smi,
+            exception_has_payload: s.exception_has_payload,
+            exception_payload: s.exception_payload,
+            ..Default::default()
+        }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+#[cfg_attr(feature = "with-serde", derive(Deserialize, Serialize))]
 pub struct kvm_vcpu_events {
     pub exception: kvm_vcpu_events__bindgen_ty_1,
     pub interrupt: kvm_vcpu_events__bindgen_ty_2,
@@ -11436,6 +11480,32 @@ fn bindgen_test_layout_kvm_irqfd() {
             stringify!(pad)
         )
     );
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+#[cfg_attr(feature = "with-serde", derive(Deserialize, Serialize))]
+pub struct kvm_clock_data_old {
+    pub clock: __u64,
+    pub flags: __u32,
+    pub pad: [__u32; 9usize],
+}
+impl From<kvm_clock_data_old> for kvm_clock_data {
+    fn from(s: kvm_clock_data_old) -> Self {
+        Self {
+            clock: s.clock,
+            flags: s.flags,
+            ..Default::default()
+        }
+    }
+}
+impl From<kvm_clock_data> for kvm_clock_data_old {
+    fn from(s: kvm_clock_data) -> Self {
+        Self {
+            clock: s.clock,
+            flags: s.flags,
+            ..Default::default()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
